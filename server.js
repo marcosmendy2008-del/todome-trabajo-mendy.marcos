@@ -14,11 +14,12 @@ app.use(express.json());
 // Configurar multer para recibir el PDF en memoria temporal
 const upload = multer({ storage: multer.memoryStorage() });
 
+// Soporte para ambas opciones por si acaso
 const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_KEY;
+const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY;
 
 if (!supabaseUrl || !supabaseKey) {
-    console.error("Faltan las credenciales en el archivo .env");
+    console.error("Faltan las credenciales de Supabase");
 }
 
 const supabase = createClient(supabaseUrl, supabaseKey);
@@ -31,10 +32,8 @@ app.post('/api/upload', upload.single('pdf'), async (req, res) => {
         }
 
         const file = req.file;
-        // Nombre único para evitar colisiones en Storage
         const fileName = `${Date.now()}_${file.originalname.replace(/\s+/g, '_')}`;
 
-        // Subir al Bucket 'archivos_tareas'
         const { data, error } = await supabase.storage
             .from('archivos_tareas')
             .upload(fileName, file.buffer, {
@@ -47,7 +46,6 @@ app.post('/api/upload', upload.single('pdf'), async (req, res) => {
             return res.status(500).json({ error: error.message });
         }
 
-        // Obtener la URL pública del archivo subido
         const { data: publicUrlData } = supabase.storage
             .from('archivos_tareas')
             .getPublicUrl(fileName);
@@ -122,10 +120,13 @@ app.delete('/api/tareas/:id', async (req, res) => {
     res.json({ mensaje: 'Tarea eliminada correctamente' });
 });
 
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`=================================`);
-    console.log(`🚀 SERVIDOR V2 CON UPLOAD ACTIVO`);
-    console.log(`Servidor escuchando en http://localhost:${PORT}`);
-    console.log(`=================================`);
-});
+// Para local
+if (process.env.NODE_ENV !== 'production') {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log(`Servidor local escuchando en http://localhost:${PORT}`);
+    });
+}
+
+// Exportación requerida para Vercel Serverless
+export default app;
