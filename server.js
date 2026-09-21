@@ -22,17 +22,18 @@ app.use(express.static(path.join(__dirname, 'Front-end')));
 // Configurar multer para recibir el PDF en memoria temporal
 const upload = multer({ storage: multer.memoryStorage() });
 
-// Soporte para ambas opciones por si acaso
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY;
+// Lectura segura de variables de entorno con fallback
+const supabaseUrl = process.env.SUPABASE_URL || 'https://placeholder.supabase.co';
+const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY || 'placeholder-key';
 
-if (!supabaseUrl || !supabaseKey) {
-    console.error("Faltan las credenciales de Supabase");
+if (!process.env.SUPABASE_URL || (!process.env.SUPABASE_ANON_KEY && !process.env.SUPABASE_KEY)) {
+    console.error("⚠️ Atención: Faltan definir las credenciales de Supabase en las variables de entorno de Vercel.");
 }
 
+// Inicialización de Supabase protegida contra valores undefined
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// --- NUEVA RUTA: Subida de archivos PDF a Supabase Storage ---
+// --- RUTA: Subida de archivos PDF a Supabase Storage ---
 app.post('/api/upload', upload.single('pdf'), async (req, res) => {
     try {
         if (!req.file) {
@@ -128,12 +129,12 @@ app.delete('/api/tareas/:id', async (req, res) => {
     res.json({ mensaje: 'Tarea eliminada correctamente' });
 });
 
-// Ruta fallback para servir el index.html cuando entren a la raíz
+// Ruta fallback para servir el index.html
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'Front-end', 'index.html'));
 });
 
-// Para local
+// Para ejecución local
 if (process.env.NODE_ENV !== 'production') {
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
