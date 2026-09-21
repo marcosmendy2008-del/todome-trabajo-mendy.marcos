@@ -3,13 +3,21 @@ import cors from 'cors';
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
 import multer from 'multer';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+// Servir archivos estáticos de la carpeta Front-end
+app.use(express.static(path.join(__dirname, 'Front-end')));
 
 // Configurar multer para recibir el PDF en memoria temporal
 const upload = multer({ storage: multer.memoryStorage() });
@@ -118,6 +126,11 @@ app.delete('/api/tareas/:id', async (req, res) => {
         return res.status(500).json({ error: error.message });
     }
     res.json({ mensaje: 'Tarea eliminada correctamente' });
+});
+
+// Ruta fallback para servir el index.html cuando entren a la raíz
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Front-end', 'index.html'));
 });
 
 // Para local
