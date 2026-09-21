@@ -1,0 +1,271 @@
+body {
+    margin-left: 10%;
+    background-color: #51adeb;
+    font-family: 'Fredoka', sans-serif;
+}
+
+.logo {
+  margin-top: 30px;
+  margin-right
+  
+  : 0;  
+  width:10% ;       
+    height: auto;       
+    object-fit: contain;
+}
+.titulos {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 40px;
+    color: #EAF6FF;
+}
+
+/* Tarjeta organizada en Rejilla (Grid) de 3 filas y 2 columnas */
+.tareasFuncionales {
+  background-color: #7FC4F2;
+  border-radius: 10px;       
+  width: 50%;               
+  padding: 16px 20px;         
+  margin-top: 12px;           
+  box-shadow: 0 2px 5px rgba(0,0,0,0.6);
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-columns: 1fr auto; /* Columna izquierda flexible, derecha ajustada */
+  grid-template-rows: auto auto auto; /* Fila 1: Título/Días | Fila 2: Descripción | Fila 3: PDF/Botones */
+  gap: 8px 12px;
+  align-items: center;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* Título a la izquierda arriba */
+.tareasFuncionales h3 {
+  margin: 0;
+  font-size: 22px;
+  grid-column: 1;
+  grid-row: 1;
+  color:#EAF6FF
+}
+
+/* Días restantes arriba a la derecha */
+.tareasFuncionales .fecha-tarea {
+  margin: 0;
+  font-size: 17px;
+  font-weight: bold;
+  grid-column: 2;
+  grid-row: 1;
+  text-align: right;
+  color:#EAF6FF
+}
+
+/* Descripción debajo del título */
+.tareasFuncionales .desc-tarea {
+  margin: 0;
+  font-size: 20px;
+  color:#EAF6FF;
+  grid-column: 1;
+  grid-row: 2;
+}
+
+/* Archivo PDF debajo de la descripción */
+.btn-pdf {
+text-decoration: none;
+  font-family: 'Fredoka', sans-serif;
+  color: #EAF6FF;
+  font-size: 15px; /* Un poco más contenido para tarjetas */
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Separación entre la hojita y el texto */
+  margin: 0;
+}
+
+.btn-pdf:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.acciones-tarea {
+  grid-column: 2;
+  grid-row: 2 / span 2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  justify-self: end;
+  align-self: end;
+}
+
+.btn-eliminar-x:hover {
+  transform: scale(1.2);
+}
+
+.tareasEditables {
+    background-color: #7FC4F2;
+    border-radius: 10px;
+    width: 350px;             
+    padding: 20px;         
+    margin: auto;               
+    box-shadow: 0 2px 5px rgba(0,0,0,0.6);
+    margin-top: 5%;
+    margin-left: 55%;
+}
+
+.tareasEditables input {
+    display: block;             
+    width: 100%;               
+    box-sizing: border-box;    
+    padding: 10px;              
+    margin-bottom: 12px;        
+    border: 1px solid #616060;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #000000;
+}
+
+#tareasEditables h2 {
+  color: #EAF6FF;
+}
+
+.button {
+    background-color: #7FC4F2;
+    border-radius: 8px;
+    height: 40px;
+    width: 80px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    cursor: pointer;
+    border: 1px solid #3E8FD6;
+    color:#020303;
+    font-size: 16px;
+}
+
+button:hover {
+  background-color: #3E8FD6;
+  transform: scale(1.08); 
+}
+.modal-botones {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  gap: 16px;             
+  margin-top: 16px;
+  width: 100%;
+}
+.btn-flotante {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;  
+  width: 56px;
+  height: 56px;
+  margin-right: 5%;
+  margin-bottom: 2%;
+  border-radius: 20%; 
+  background-color: #0499cf;
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-flotante:hover {
+  background-color: #3E8FD6;
+  transform: scale(1.01); 
+}
+
+.button, .btn-pdf, button {
+  outline: none; 
+}
+
+.modal-eliminar-pop {
+  background-color: #7FC4F2; /* Tu color preferido */
+  border: none;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  justify-content: center;
+  height: 160px;
+  width: 300px;
+}
+
+/* Fondo oscuro alrededor del pop-up */
+.modal-eliminar-pop::backdrop {
+  background-color: rgba(0.2, 0.2, 0.2, 0.5);
+}
+
+/* Texto de la pregunta */
+.modal-eliminar-texto {
+  color: #ffffff;
+  font-size: 1.40rem;
+  margin-bottom: 35px;
+}
+
+/* Contenedor de los botones */
+.modal-eliminar-botones {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+/* Botón SÍ */
+.btn-eliminar-si {
+  height: 40px;
+  width: 60px;
+  border-radius: 8px;
+  background-color: #7dff03; 
+  border-color: #0000;
+}
+.btn-eliminar-si:hover {
+  background-color: #5cd600; 
+}
+
+/* Botón NO */
+.btn-eliminar-no {
+  height: 40px;
+  width: 60px;
+  border-radius: 8px;
+  background-color: #ff0303; 
+  border-color: #0000;
+}
+.btn-eliminar-no:hover {
+  background-color: #d60000; 
+}
+
+.botonadd{
+  width: 30%;
+  height: 20%;
+  border-radius: 5px;
+  background-color: #7FC4F2;
+  margin-left: 3px;
+  cursor: pointer;
+}
+
+.contenedor-adjuntos-modal{
+width: 100%;
+height: 100%;
+}
+.btn-quitar-adjunto
+{
+  background-color: #333333;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 4px;
+  height: 30px;
+  width: 35px;
+  margin-left: 5px;
+}
+.btn-quitar-adjunto:hover {
+  background-color: #111;
+}
