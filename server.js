@@ -130,7 +130,7 @@ app.delete('/api/tareas/:id', async (req, res) => {
 });
 
 // Ruta fallback para servir el index.html
-app.get('*', (req, res) => {
+app.use('(.*)', (req, res) => {
     res.sendFile(path.join(__dirname, 'Front-end', 'index.html'));
 });
 
