@@ -11,12 +11,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const supabaseUrl = process.env.SUPABASE_URL || 'https://placeholder.supabase.co';
+const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY || 'placeholder-key';
+
 // Configurar multer para recibir el PDF en memoria temporal
 const upload = multer({ storage: multer.memoryStorage() });
 
 // Lectura segura de variables de entorno con fallback
-const supabaseUrl = process.env.SUPABASE_URL || 'https://placeholder.supabase.co';
-const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY || 'placeholder-key';
 
 if (!process.env.SUPABASE_URL || (!process.env.SUPABASE_ANON_KEY && !process.env.SUPABASE_KEY)) {
     console.error("⚠️ Atención: Faltan definir las credenciales de Supabase en las variables de entorno de Vercel.");
