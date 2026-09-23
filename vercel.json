@@ -8,12 +8,12 @@
   ],
   "routes": [
     {
-      "src": "/api/tareas(.*)",
+      "src": "/api/(.*)",
       "dest": "server.js"
     },
     {
       "src": "/(.*)",
-      "dest": "frontend/$1"
+      "dest": "front-end/$1"
     }
   ]
 }

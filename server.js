@@ -71,6 +71,10 @@ app.get('/api/tareas', async (req, res) => {
     res.json(data);
 });
 
+    app.get('/api', (req, res) => {
+        res.json({ mensaje: "API de To-doMe activa" });
+    });
+
 // POST - Crear tarea
 app.post('/api/tareas', async (req, res) => {
     const { nombre, dias, descripcion, archivo } = req.body;
