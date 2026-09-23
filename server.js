@@ -11,8 +11,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const supabaseUrl = process.env.SUPABASE_URL || 'https://placeholder.supabase.co';
-const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY || 'placeholder-key';
+const supabaseUrl = process.env.SUPABASE_URL || 'https://rysplvmwekfkhjowjhvv.supabase.co';
+const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY || 'sb_publishable_dV0oaFiCOaFAa0jlIynTSA_deOD6jHK';
 
 // Configurar multer para recibir el PDF en memoria temporal
 const upload = multer({ storage: multer.memoryStorage() });
