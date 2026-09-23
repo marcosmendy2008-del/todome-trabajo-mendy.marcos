@@ -3,7 +3,14 @@ import cors from 'cors';
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
 import multer from 'multer';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Servir estáticos
+app.use(express.static(path.join(__dirname, 'frontend')));
 dotenv.config();
 
 const app = express();
@@ -76,7 +83,7 @@ app.get('/api/tareas', async (req, res) => {
     });
 
 // POST - Crear tarea
-app.post('/api/tareas', async (req, res) => {
+app.post('/api/tareas', async (req,     res) => {
     const { nombre, dias, descripcion, archivo } = req.body;
     
     const fechaValidada = dias && typeof dias === 'string' && dias.trim() !== "" ? dias : null;
